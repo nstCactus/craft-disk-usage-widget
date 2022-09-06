@@ -1,0 +1,9 @@
+<progress value="{{ percentUsed }}" {% if percentUsed > 0.9 %}class="critical"{% endif %}></progress>
+<br>
+{{ used }} / {{ total }}
+
+{% css %}
+    progress.critical {
+        accent-color: #D61F2B;
+    }
+{% endcss %}

@@ -1,0 +1,39 @@
+{
+    "name": "nstcactus/craft-disk-usage-widget",
+    "description": "A Craft CMS widget that displays the disk usage on your server",
+    "type": "craft-plugin",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin"
+    ],
+    "support": {
+        "docs": "https://github.com/nstCactus/craft-disk-usage-widget/blob/master/README.md",
+        "issues": "https://github.com/nstCactus/craft-disk-usage-widget/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "nstCactus",
+            "homepage": "https://github.com/nstCactus"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "nstcactus\\craftcms\\diskUsageWidget\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Disk usage dashboard widget",
+        "handle": "disk-usage-widget",
+        "description": "A dashboard widget that displays disk usage on your server",
+        "developer": "nstCactus",
+        "developerUrl": "https://github.com/nstCactus",
+        "documentationUrl": "https://github.com/nstCactus/craft-disk-usage-widget/blob/master/README.md",
+        "changelogUrl": "https://raw.githubusercontent.com/nstCactus/craft-disk-usage-widget/master/CHANGELOG.md"
+    }
+}

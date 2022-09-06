@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+    <defs>
+        <linearGradient id="a" x1="118.447" x2="203.928" y1="6.332" y2="91.813" gradientTransform="scale(1.2664 .78964)" gradientUnits="userSpaceOnUse">
+            <stop offset="-99" stop-color="#ff2"/>
+            <stop offset="1" stop-color="#01ff00"/>
+        </linearGradient>
+        <linearGradient id="b" x1="581.826" x2="581.826" y1="30.43" y2="86.782" gradientTransform="scale(.45081 2.21821)" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#01ff00"/>
+            <stop offset="1" stop-color="#0ff"/>
+        </linearGradient>
+        <linearGradient id="c" x1="203.928" x2="118.447" y1="237.449" y2="322.93" gradientTransform="scale(1.2664 .78964)" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#0ff"/>
+            <stop offset="1" stop-color="#00f"/>
+        </linearGradient>
+        <linearGradient id="d" x1="118.447" x2="32.965" y1="322.93" y2="237.449" gradientTransform="scale(1.2664 .78964)" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#00f"/>
+            <stop offset="1" stop-color="#FB0300"/>
+        </linearGradient>
+        <linearGradient id="e" x1="83.638" x2="83.638" y1="86.782" y2="30.43" gradientTransform="scale(.45081 2.21821)" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#FB0300"/>
+            <stop offset="1" stop-color="#ff8700"/>
+        </linearGradient>
+        <linearGradient id="f" x1="32.965" x2="118.447" y1="91.813" y2="6.332" gradientTransform="scale(1.2664 .78964)" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#ff8700"/>
+            <stop offset="1" stop-color="#ff2"/>
+        </linearGradient>
+    </defs>
+    <g stroke-width="287.807" transform="translate(-92.909 61.532) scale(.03271)">
+        <g fill="none" stroke-width="26.093">
+            <path stroke="url(#a)" d="M150 10a120 120 0 0 1 103.923 60" transform="translate(2653.06 -1847.582) scale(11.03022)"/>
+            <path stroke="url(#b)" d="M253.923 70a120 120 0 0 1 0 120" transform="translate(2653.06 -1847.582) scale(11.03022)"/>
+            <path stroke="url(#c)" d="M253.923 190A120 120 0 0 1 150 250" transform="translate(2653.06 -1847.582) scale(11.03022)"/>
+            <path stroke="url(#d)" d="M150 250a120 120 0 0 1-103.923-60" transform="translate(2653.06 -1847.582) scale(11.03022)"/>
+            <path stroke="url(#e)" d="M46.077 190a120 120 0 0 1 0-120" transform="translate(2653.06 -1847.582) scale(11.03022)"/>
+            <path stroke="url(#f)" d="M46.077 70A120 120 0 0 1 150 10" transform="translate(2653.06 -1847.582) scale(11.03022)"/>
+        </g>
+        <circle cx="4307.8262" cy="-413.69614" r="1329.8685" fill="#fff" opacity=".5"/>
+    </g>
+    <path fill="#333" d="M26.2447949 27.4998875c-1.854192 0-3.34692 1.51849928-3.34692 3.40411803v5.74271394c0 1.88561875 1.492728 3.40411803 3.34692 3.40411803h43.50996c1.854192 0 3.34692-1.51849928 3.34692-3.40411803v-5.74271394c0-1.88561875-1.492728-3.40411803-3.34692-3.40411803Zm41.02264955 3.765285a2.51019 2.51019 0 0 1 2.51019 2.51019 2.51019 2.51019 0 0 1-2.51019 2.51019 2.51019 2.51019 0 0 1-2.51019-2.51019 2.51019 2.51019 0 0 1 2.51019-2.51019zM26.2447949 41.7242975c-1.854192 0-3.34692 1.51849928-3.34692 3.40411803v5.74271394c0 1.88561875 1.492728 3.40411803 3.34692 3.40411803h43.50996c1.854192 0 3.34692-1.51849928 3.34692-3.40411803v-5.74271394c0-1.88561875-1.492728-3.40411803-3.34692-3.40411803Zm41.02264955 3.765285a2.51019 2.51019 0 0 1 2.51019 2.51019 2.51019 2.51019 0 0 1-2.51019 2.51019 2.51019 2.51019 0 0 1-2.51019-2.51019 2.51019 2.51019 0 0 1 2.51019-2.51019zM26.2447949 55.9487075c-1.854192 0-3.34692 1.51849928-3.34692 3.40411803v5.74271394c0 1.88561875 1.492728 3.40411803 3.34692 3.40411803h43.50996c1.854192 0 3.34692-1.51849928 3.34692-3.40411803v-5.74271394c0-1.88561875-1.492728-3.40411803-3.34692-3.40411803Zm41.02264955 3.765285a2.51019 2.51019 0 0 1 2.51019 2.51019 2.51019 2.51019 0 0 1-2.51019 2.51019 2.51019 2.51019 0 0 1-2.51019-2.51019 2.51019 2.51019 0 0 1 2.51019-2.51019z"/>
+</svg>
