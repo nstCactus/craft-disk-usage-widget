@@ -6,11 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- [BREAKING] Make the plugin compatible with Craft 4
+
 
 ## 1.0.0 - 2022-09-05
+
 ### Added
 - Initial release
-
-
-[Unreleased]: https://github.com/nstCactus/craft-disk-usage-widget/compare/1.0.0...HEAD
-[1.0.0]: https://github.com/nstCactus/craft-disk-usage-widget/releases/tag/1.0.0

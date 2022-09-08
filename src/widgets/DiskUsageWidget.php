@@ -8,7 +8,7 @@ use nstcactus\craftcms\diskUsageWidget\helpers\FilesizeHelper;
 
 class DiskUsageWidget extends Widget
 {
-    public $directory;
+    public ?string $directory = null;
 
     public static function displayName(): string
     {
