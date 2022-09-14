@@ -4,7 +4,7 @@
     label: "Directory"|t('disk-usage-widget'),
     id: 'directory',
     name: 'directory',
-    value: widget.directory,
+    value: widget.directory ?? alias('@root'),
     required: true,
     instructions: 'The widget will display the disk usage in the partition in which this directory resides.'|t('disk-usage-widget'),
     errors: widget.getErrors('directory'),
