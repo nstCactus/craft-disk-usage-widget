@@ -6,14 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Default monitored directory set to the Craft CMS base directory
+
 
 ## 2.0.0 - 2022-09-08
 
 ### Changed
 - [BREAKING] Make the plugin compatible with Craft 4
-
-
-## 1.0.0 - 2022-09-05
-
-### Added
-- Initial release
