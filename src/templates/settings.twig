@@ -9,3 +9,13 @@
     instructions: 'The widget will display the disk usage in the partition in which this directory resides.'|t('disk-usage-widget'),
     errors: widget.getErrors('directory'),
 }) }}
+
+{{ forms.textField({
+    label: "Soft limit"|t('disk-usage-widget'),
+    id: 'soft-limit',
+    name: 'softLimit',
+    value: widget.softLimit,
+    required: true,
+    instructions: 'A disk usage amount (ex: 16Gb). When this amount of disk usage is reached, the indicator will be shown in red.'|t('disk-usage-widget'),
+    errors: widget.getErrors('directory'),
+}) }}

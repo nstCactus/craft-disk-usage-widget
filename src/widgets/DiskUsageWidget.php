@@ -9,6 +9,7 @@ use nstcactus\craftcms\diskUsageWidget\helpers\FilesizeHelper;
 class DiskUsageWidget extends Widget
 {
     public ?string $directory = null;
+    public ?string $softLimit = null;
 
     public static function displayName(): string
     {
@@ -67,12 +68,17 @@ class DiskUsageWidget extends Widget
         $free = disk_free_space($this->directory);
         $total = disk_total_space($this->directory);
         $used = $total - $free;
+        $softLimit = FilesizeHelper::toMachineReadable($this->softLimit ?? '0') ?: $total;
+        $isOverSoftLimit = $used >= $softLimit;
 
         return Craft::$app->view->renderTemplate('disk-usage-widget/body.twig', [
             'widget' => $this,
-            'percentUsed' => $used / $total,
+            'usedPercentage' => $used / $total,
+            'softLimitPercentage' => $softLimit / $total,
             'used' => FilesizeHelper::toHumanReadable($used),
             'total' => FilesizeHelper::toHumanReadable($total),
+            'softLimit' => FilesizeHelper::toHumanReadable($softLimit),
+            'isOverSoftLimit' => $isOverSoftLimit,
         ]);
     }
 }
