@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Add the ability to customize the soft limit: once this amount of disk usage is
+  reached the indicator will turn red ([#1](https://github.com/nstCactus/craft-disk-usage-widget/issues/1))
+
+### Fixed
+- Fix disk usage indicator style 
+
 
 ## 1.1.0 - 2022-09-14
 ### Changed
