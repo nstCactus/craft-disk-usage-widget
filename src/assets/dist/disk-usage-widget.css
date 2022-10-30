@@ -1,0 +1,67 @@
+.disk-usage-widget .summary {
+    font-weight: 500;
+}
+
+.disk-usage-widget .progress {
+    height: 1.5rem;
+    margin: .5rem 0 1rem;
+    padding: .125rem;
+    border: .1rem solid var(--gray-300);
+    border-radius: .75rem;
+}
+.disk-usage-widget .track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.disk-usage-widget .indicator {
+    height: 100%;
+    background-color: var(--medium-focus-color);
+    border-radius: .75rem;
+}
+
+.disk-usage-widget .progress.critical .indicator {
+    background-color: var(--error-color);
+}
+
+.disk-usage-widget .soft-limit {
+    position: absolute;
+    top: .125rem;
+    bottom: .125rem;
+    border-left: .125rem dotted white;
+}
+
+.disk-usage-widget .soft-limit.dark {
+    border-left-color: black;
+}
+
+.disk-usage-widget .soft-limit::after {
+    content: attr(data-soft-limit);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    padding-top: .5rem;
+}
+
+.disk-usage-widget progress {
+    width: 100%;
+    border: revert;
+}
+.disk-usage-widget progress.critical {
+    accent-color: #D61F2B;
+}
+
+.disk-usage-widget-settings__disk-quotas-settings {
+    display: none;
+}
+
+.disk-usage-widget-settings--with-disk-quotas .disk-usage-widget-settings__disk-quotas-settings {
+    display: block;
+}
+
+.disk-usage-widget-settings--with-disk-quotas .disk-usage-widget-settings__no-disk-quotas-settings {
+    display: none;
+}
