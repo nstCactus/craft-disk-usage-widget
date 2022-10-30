@@ -65,8 +65,17 @@ class DiskUsageWidget extends Widget
 
     public function getBodyHtml(): string
     {
+        if (!file_exists($this->directory)) {
+            return $this->renderError("The <code>$this->directory</code> directory doesn't exist.");
+        }
+
         $free = disk_free_space($this->directory);
         $total = disk_total_space($this->directory);
+
+        if (!$free || !$total) {
+            return $this->renderError("Couldn't get the free and/or total space on the partition containing the $this->directory directory.");
+        }
+
         $used = $total - $free;
         $softLimit = FilesizeHelper::toMachineReadable($this->softLimit ?? '0') ?: $total;
         $isOverSoftLimit = $used >= $softLimit;
@@ -79,6 +88,13 @@ class DiskUsageWidget extends Widget
             'total' => FilesizeHelper::toHumanReadable($total),
             'softLimit' => FilesizeHelper::toHumanReadable($softLimit),
             'isOverSoftLimit' => $isOverSoftLimit,
+        ]);
+    }
+
+    public function renderError(string $error): string
+    {
+        return Craft::$app->view->renderTemplate('disk-usage-widget/error.twig', [
+            'error' => $error
         ]);
     }
 }
