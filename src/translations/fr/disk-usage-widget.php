@@ -2,6 +2,7 @@
     'Disk usage' => 'Espace disque utilisé',
     'Disk usage in the {directory} directory' => 'Espace disque utilisé dans le dossier {directory}',
     'Disk usage in the {partition} partition' => 'Espace disque utilisé dans la partition {partition}',
+    'No partition having quota found' => 'Aucune partition ayant un quota trouvée',
     'Directory' => 'Dossier',
     'The widget will display the disk usage in the partition in which this directory resides.' => "Ce widget affiche l'espace disque utilisé sur la partition contenant ce dossier.",
     'Soft limit' => 'Limit "soft"',
