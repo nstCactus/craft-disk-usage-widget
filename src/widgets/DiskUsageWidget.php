@@ -6,8 +6,9 @@ use Craft;
 use craft\base\Widget;
 use craft\helpers\StringHelper;
 use nstcactus\craftcms\diskUsageWidget\assets\AssetBundle;
+use nstcactus\craftcms\diskUsageWidget\exceptions\ShellCommandException;
 use nstcactus\craftcms\diskUsageWidget\helpers\FilesizeHelper;
-use mikehaertl\shellcommand\Command as ShellCommand;
+use nstcactus\craftcms\diskUsageWidget\Plugin;
 
 class DiskUsageWidget extends Widget
 {
@@ -58,33 +59,16 @@ class DiskUsageWidget extends Widget
 
         Craft::$app->getView()->registerJs("new DiskUsageWidget('$namespacedId', '$namespace');");
 
+        // Get available partitions for quota mode
+        $partitions = $this->getAvailablePartitionsForQuotaMode();
+
         return Craft::$app->view->renderTemplate('disk-usage-widget/settings.twig', [
             'widget' => $this,
             'id' => $id,
             'namespace' => $namespace,
+            'partitions' => $partitions ?? [],
         ]);
     }
-
-    protected function defineRules(): array
-    {
-        $rules = parent::defineRules();
-        $rules[] = ['directory', 'required'];
-        $rules[] = ['directory', function($attribute) {
-            if (realpath($this->directory) === false) {
-                $this->addError(
-                    $attribute,
-                    Craft::t(
-                        'disk-usage-widget',
-                        'This field must be the path to an existing directory on the server',
-                        ['attribute' => $attribute]
-                    )
-                );
-            }
-        }];
-
-        return $rules;
-    }
-
 
     public function getBodyHtml(): string
     {
@@ -97,55 +81,71 @@ class DiskUsageWidget extends Widget
         return $this->renderUsingPhpBuiltInFunctions();
     }
 
-    public function renderError(string $error): string
+    protected function defineRules(): array
+    {
+        $rules = parent::defineRules();
+        $rules[] = ['directory', 'required'];
+        $rules[] = [
+            'directory',
+            function ($attribute) {
+                if (realpath($this->directory) === false) {
+                    $this->addError(
+                        $attribute,
+                        Craft::t(
+                            'disk-usage-widget',
+                            'This field must be the path to an existing directory on the server',
+                            ['attribute' => $attribute]
+                        )
+                    );
+                }
+            }
+        ];
+
+        return $rules;
+    }
+
+    protected function renderError(string $error): string
     {
         return Craft::$app->view->renderTemplate('disk-usage-widget/error.twig', [
             'error' => $error
         ]);
     }
 
-    public function renderUsingQuotas(): string
+    protected function renderUsingQuotas(): string
     {
-        $shellCommand = new ShellCommand();
-        $shellCommand->setCommand('quota -s');
+        try {
+            $output = Plugin::getInstance()->shellCommands->executeShellCommand('quota -s');
 
-        // If we don't have proc_open, maybe we've got exec
-        if (!function_exists('proc_open') && function_exists('exec')) {
-            $shellCommand->useExec = true;
+            if (!preg_match(
+                "|\s+$this->partition\s+(?<used>.+?)\s+(?<quota>.+?)\s+(?<limit>.+?)\s|",
+                $output,
+                $matches,
+            )) {
+                return $this->renderError(
+                    'An error occurred while parsing the output of the <code>quota -s</code> command.'
+                );
+            }
+
+            ['used' => $used, 'quota' => $softLimit, 'limit' => $total] = $matches;
+            $total = FilesizeHelper::toMachineReadable($total);
+            $used = FilesizeHelper::toMachineReadable($used);
+            $softLimit = FilesizeHelper::toMachineReadable($softLimit);
+
+            return Craft::$app->view->renderTemplate('disk-usage-widget/body.twig', [
+                'widget' => $this,
+                'usedPercentage' => $used / $total,
+                'softLimitPercentage' => $softLimit / $total,
+                'used' => FilesizeHelper::toHumanReadable($used),
+                'total' => FilesizeHelper::toHumanReadable($total),
+                'softLimit' => FilesizeHelper::toHumanReadable($softLimit),
+                'isOverSoftLimit' => $used > $softLimit,
+            ]);
+        } catch (ShellCommandException $e) {
+            return $this->renderError($e->getMessage());
         }
-
-        $success = $shellCommand->execute();
-        if (!$success) {
-            return $this->renderError('An error occurred while executing the <code>quota -s</code> command.');
-        }
-
-        $output = $shellCommand->getOutput();
-
-        if (!preg_match(
-            "|\s+$this->partition\s+(?<used>.+?)\s+(?<quota>.+?)\s+(?<limit>.+?)\s|",
-            $output,
-            $matches,
-        )) {
-            return $this->renderError('An error occurred while parsing the output of the <code>quota -s</code> command.');
-        }
-
-        ['used' => $used, 'quota' => $softLimit, 'limit' => $total] = $matches;
-        $total = FilesizeHelper::toMachineReadable($total);
-        $used = FilesizeHelper::toMachineReadable($used);
-        $softLimit = FilesizeHelper::toMachineReadable($softLimit);
-
-        return Craft::$app->view->renderTemplate('disk-usage-widget/body.twig', [
-            'widget' => $this,
-            'usedPercentage' => $used / $total,
-            'softLimitPercentage' => $softLimit / $total,
-            'used' => FilesizeHelper::toHumanReadable($used),
-            'total' => FilesizeHelper::toHumanReadable($total),
-            'softLimit' => FilesizeHelper::toHumanReadable($softLimit),
-            'isOverSoftLimit' => $used > $softLimit,
-        ]);
     }
 
-    public function renderUsingPhpBuiltInFunctions(): string
+    protected function renderUsingPhpBuiltInFunctions(): string
     {
         if (!file_exists($this->directory)) {
             return $this->renderError("The <code>$this->directory</code> directory doesn't exist.");
@@ -155,7 +155,9 @@ class DiskUsageWidget extends Widget
         $total = disk_total_space($this->directory);
 
         if (!$free || !$total) {
-            return $this->renderError("Couldn't get the free and/or total space on the partition containing the $this->directory directory.");
+            return $this->renderError(
+                "Couldn't get the free and/or total space on the partition containing the $this->directory directory."
+            );
         }
 
         $used = $total - $free;
@@ -171,5 +173,25 @@ class DiskUsageWidget extends Widget
             'softLimit' => FilesizeHelper::toHumanReadable($softLimit),
             'isOverSoftLimit' => $isOverSoftLimit,
         ]);
+    }
+
+    protected function getAvailablePartitionsForQuotaMode(): array
+    {
+        try {
+            $output = Plugin::getInstance()->shellCommands->executeShellCommand('quota -s');
+
+            if (preg_match_all(
+                "/^\\s+(?<partitions>\\/.+?)\\s+\\d/m",
+                $output,
+                $matches,
+            )) {
+                $partitions = $matches['partitions'];
+
+                return array_combine($partitions, $partitions);
+            }
+        } catch (ShellCommandException $e) {
+        }
+
+        return [];
     }
 }

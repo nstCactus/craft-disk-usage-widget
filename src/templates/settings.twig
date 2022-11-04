@@ -1,6 +1,7 @@
 {% import "_includes/forms" as forms %}
 
-<div id="{{ id }}" class="disk-usage-widget-settings {{ widget.areQuotasUsed ? 'disk-usage-widget-settings--with-disk-quotas' }}">
+<div id="{{ id }}"
+     class="disk-usage-widget-settings {{ widget.areQuotasUsed ? 'disk-usage-widget-settings--with-disk-quotas' }}">
     {{ forms.lightswitchField({
         label: 'The server uses disk quotas'|t('disk-usage-widget'),
         id: 'areQuotasUsed',
@@ -11,10 +12,11 @@
     }) }}
 
     <fieldset class="disk-usage-widget-settings__disk-quotas-settings">
-        {{ forms.textField({
+        {{ forms.selectField({
             label: 'Partition'|t('disk-usage-widget'),
             id: 'partition',
             name: 'partition',
+            options: partitions,
             value: widget.partition,
             required: true,
             instructions: 'The widget will display the disk usage in the partition in which this partition resides.'|t('disk-usage-widget'),
