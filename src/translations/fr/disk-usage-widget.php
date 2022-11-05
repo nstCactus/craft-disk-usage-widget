@@ -10,5 +10,10 @@
     'This field must be the path to an existing directory on the server' => 'Ce champ doit être le chemin vers un dossier existant sur le serveur.',
     'Disk usage: {used} / {total}' => 'Espace disque utilisé : {used} / {total}',
     'Soft-limit: {amount}' => 'Limite "soft" : {amount}',
-    'In quotas mode, the soft limit is set by the hosting provider. Enable this to set your own limit.' => "En mode \"quotas\", la limit \"soft\" est définie par l'hébergeur. Activez ceci pour définir votre propre limite.",
+    'In quotas mode, the soft limit is set by the hosting provider. Enable this to set your own limit.' => "En mode quotas, la limit \"soft\" est définie par l'hébergeur. Activez ceci pour définir votre propre limite.",
+    'The server uses disk quotas' => "Le serveur utilise des quotas d'espace disque",
+    'If the server uses disk quotas, the output of the <code>quota</code> command can be used to display more accurate information.' => "Si le serveur utilise des quotas d'espace disque, la commande <code>quota</code> peut être utilisée pour afficher des informations plus précises.",
+    'Partition' => 'Partition',
+    'Override soft limit' => "Définir une limit \"soft\" personnalisée",
+    'The widget will display the disk usage in this partition.' => "Le widget affiche l'espace disque utilisé sur cette partition.",
 ];

@@ -10,7 +10,7 @@
         id: 'areQuotasUsed',
         name: 'areQuotasUsed',
         on: widget.areQuotasUsed,
-        instructions: 'If the server uses disk quotas, the output of the <code>quota</code> command can be used to display more acurate information.'|t('disk-usage-widget'),
+        instructions: 'If the server uses disk quotas, the output of the <code>quota</code> command can be used to display more accurate information.'|t('disk-usage-widget'),
         errors: widget.getErrors('areQuotasUsed'),
     }) }}
 
@@ -23,7 +23,7 @@
             disabled: partitions is empty,
             value: partitions is not empty ? widget.partition : 0,
             required: true,
-            instructions: 'The widget will display the disk usage in the partition in which this partition resides.'|t('disk-usage-widget'),
+            instructions: 'The widget will display the disk usage in this partition.'|t('disk-usage-widget'),
             errors: widget.getErrors('partition'),
         }) }}
 
