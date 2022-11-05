@@ -15,6 +15,7 @@ class DiskUsageWidget extends Widget
     public ?string $directory = null;
     public ?string $softLimit = null;
     public bool $areQuotasUsed = false;
+    public bool $overrideSoftLimit = false;
     public ?string $partition = null;
 
     public static function displayName(): string
@@ -127,6 +128,11 @@ class DiskUsageWidget extends Widget
             }
 
             ['used' => $used, 'quota' => $softLimit, 'limit' => $total] = $matches;
+
+            if ($this->overrideSoftLimit && $this->softLimit) {
+                $softLimit = $this->softLimit;
+            }
+
             $total = FilesizeHelper::toMachineReadable($total);
             $used = FilesizeHelper::toMachineReadable($used);
             $softLimit = FilesizeHelper::toMachineReadable($softLimit);

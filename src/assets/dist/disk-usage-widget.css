@@ -65,3 +65,12 @@
 .disk-usage-widget-settings--with-disk-quotas .disk-usage-widget-settings__no-disk-quotas-settings {
     display: none;
 }
+
+.disk-usage-widget-settings__soft-limit {
+    display: none;
+}
+
+.disk-usage-widget-settings:not(.disk-usage-widget-settings--with-disk-quotas) .disk-usage-widget-settings__soft-limit,
+.disk-usage-widget-settings--with-disk-quotas.disk-usage-widget-settings--override-soft-limit .disk-usage-widget-settings__soft-limit {
+    display: block;
+}
