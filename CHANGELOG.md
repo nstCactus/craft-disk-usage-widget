@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Add support for UNIX quotas
+### Fixed
+- Fix an error if the directory to watch doesn't exist
+
 
 ## 1.2.0 - 2022-09-27
 

@@ -1,21 +1,63 @@
 {% import "_includes/forms" as forms %}
 
-{{ forms.textField({
-    label: "Directory"|t('disk-usage-widget'),
-    id: 'directory',
-    name: 'directory',
-    value: widget.directory ?? alias('@root'),
-    required: true,
-    instructions: 'The widget will display the disk usage in the partition in which this directory resides.'|t('disk-usage-widget'),
-    errors: widget.getErrors('directory'),
-}) }}
+<div id="{{ id }}" class="
+    disk-usage-widget-settings
+    {{ widget.areQuotasUsed ? 'disk-usage-widget-settings--with-disk-quotas' }}
+    {{ widget.overrideSoftLimit ? 'disk-usage-widget-settings--override-soft-limit' }}
+">
+    {{ forms.lightswitchField({
+        label: 'The server uses disk quotas'|t('disk-usage-widget'),
+        id: 'areQuotasUsed',
+        name: 'areQuotasUsed',
+        on: widget.areQuotasUsed,
+        instructions: 'If the server uses disk quotas, the output of the <code>quota</code> command can be used to display more accurate information.'|t('disk-usage-widget'),
+        errors: widget.getErrors('areQuotasUsed'),
+    }) }}
 
-{{ forms.textField({
-    label: "Soft limit"|t('disk-usage-widget'),
-    id: 'soft-limit',
-    name: 'softLimit',
-    value: widget.softLimit,
-    required: true,
-    instructions: 'A disk usage amount (ex: 16Gb). When this amount of disk usage is reached, the indicator will be shown in red.'|t('disk-usage-widget'),
-    errors: widget.getErrors('directory'),
-}) }}
+    <fieldset class="disk-usage-widget-settings__disk-quotas-settings">
+        {{ forms.selectField({
+            label: 'Partition'|t('disk-usage-widget'),
+            id: 'partition',
+            name: 'partition',
+            options: partitions ?: [{ label: 'No partition having quota found'|t('disk-usage-widget') }],
+            disabled: partitions is empty,
+            value: partitions is not empty ? widget.partition : 0,
+            required: true,
+            instructions: 'The widget will display the disk usage in this partition.'|t('disk-usage-widget'),
+            errors: widget.getErrors('partition'),
+        }) }}
+
+        {{ forms.lightswitchField({
+            label: 'Override soft limit'|t('disk-usage-widget'),
+            id: 'overrideSoftLimit',
+            name: 'overrideSoftLimit',
+            on: widget.overrideSoftLimit,
+            instructions: 'In quotas mode, the soft limit is set by the hosting provider. Enable this to set your own limit.'|t('disk-usage-widget'),
+            errors: widget.getErrors('overrideSoftLimit'),
+        }) }}
+    </fieldset>
+
+    <fieldset class="disk-usage-widget-settings__no-disk-quotas-settings">
+        {{ forms.textField({
+            label: "Directory"|t('disk-usage-widget'),
+            id: 'directory',
+            name: 'directory',
+            value: widget.directory ?? alias('@root'),
+            required: true,
+            instructions: 'The widget will display the disk usage in the partition in which this directory resides.'|t('disk-usage-widget'),
+            errors: widget.getErrors('directory'),
+        }) }}
+    </fieldset>
+
+    <fieldset class="disk-usage-widget-settings__soft-limit">
+        {{ forms.textField({
+            label: "Soft limit"|t('disk-usage-widget'),
+            id: 'soft-limit',
+            name: 'softLimit',
+            value: widget.softLimit,
+            required: true,
+            instructions: 'A disk usage amount (ex: 16Gb). When this amount of disk usage is reached, the indicator will be shown in red.'|t('disk-usage-widget'),
+            errors: widget.getErrors('softLimit'),
+        }) }}
+    </fieldset>
+</div>
