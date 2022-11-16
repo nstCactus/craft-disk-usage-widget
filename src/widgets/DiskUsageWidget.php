@@ -12,11 +12,11 @@ use nstcactus\craftcms\diskUsageWidget\Plugin;
 
 class DiskUsageWidget extends Widget
 {
-    public ?string $directory = null;
-    public ?string $softLimit = null;
-    public bool $areQuotasUsed = false;
-    public bool $overrideSoftLimit = false;
-    public ?string $partition = null;
+    public $directory = null;
+    public $softLimit = null;
+    public $areQuotasUsed = false;
+    public $overrideSoftLimit = false;
+    public $partition = null;
 
     public static function displayName(): string
     {
@@ -120,7 +120,7 @@ class DiskUsageWidget extends Widget
             if (!preg_match(
                 "|\s+$this->partition\s+(?<used>.+?)\s+(?<quota>.+?)\s+(?<limit>.+?)\s|",
                 $output,
-                $matches,
+                $matches
             )) {
                 return $this->renderError(
                     'An error occurred while parsing the output of the <code>quota -s</code> command.'
@@ -189,7 +189,7 @@ class DiskUsageWidget extends Widget
             if (preg_match_all(
                 "/^\\s+(?<partitions>\\/.+?)\\s+\\d/m",
                 $output,
-                $matches,
+                $matches
             )) {
                 $partitions = $matches['partitions'];
 

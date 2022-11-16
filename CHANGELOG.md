@@ -6,11 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Fix PHP 7.2 compatibility issues
+
 
 ## 1.3.0 - 2022-11-05
 
 ### Added
 - Add support for UNIX quotas
+
 ### Fixed
 - Fix an error if the directory to watch doesn't exist
 
@@ -22,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   reached the indicator will turn red ([#1](https://github.com/nstCactus/craft-disk-usage-widget/issues/1))
 
 ### Fixed
-- Fix disk usage indicator style 
+- Fix disk usage indicator style
 
 
 ## 1.1.0 - 2022-09-14
