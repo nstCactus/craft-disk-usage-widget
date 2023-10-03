@@ -6,9 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+
+## 2.3.1 - 2023-10-03
+
 ### Fixed
 
-- Fix parsing of the `quota` command output when there are devices with long names
+- Fix the widget when using quotas on a server having long partition names
 
 
 ## 2.3.0 - 2022-11-05
