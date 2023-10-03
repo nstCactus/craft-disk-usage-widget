@@ -115,15 +115,15 @@ class DiskUsageWidget extends Widget
     protected function renderUsingQuotas(): string
     {
         try {
-            $output = Plugin::getInstance()->shellCommands->executeShellCommand('quota -s');
+            $output = Plugin::getInstance()->shellCommands->executeShellCommand('quota -s -w -p');
 
             if (!preg_match(
-                "|\s+$this->partition\s+(?<used>.+?)\s+(?<quota>.+?)\s+(?<limit>.+?)\s|",
+                "|\s*$this->partition\s+(?<used>.+?)\s+(?<quota>.+?)\s+(?<limit>.+?)\s|",
                 $output,
                 $matches,
             )) {
                 return $this->renderError(
-                    'An error occurred while parsing the output of the <code>quota -s</code> command.'
+                    'An error occurred while parsing the output of the <code>quota -s -w -p</code> command.'
                 );
             }
 
@@ -184,10 +184,10 @@ class DiskUsageWidget extends Widget
     protected function getAvailablePartitionsForQuotaMode(): array
     {
         try {
-            $output = Plugin::getInstance()->shellCommands->executeShellCommand('quota -s');
+            $output = Plugin::getInstance()->shellCommands->executeShellCommand('quota -s -w -p');
 
             if (preg_match_all(
-                "/^\\s+(?<partitions>\\/.+?)\\s+\\d/m",
+                "/^\\s*(?<partitions>\\/.+?)\\s+\\d/m",
                 $output,
                 $matches,
             )) {
